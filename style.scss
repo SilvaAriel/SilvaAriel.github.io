@@ -107,7 +107,7 @@ strong, b {
 }
 
 img {
-  max-width: 100%;
+  max-width: 80%;
 }
 
 // Fixes images in popup boxes from Google Translate
@@ -186,6 +186,21 @@ img {
 
 .front-title-nav-item {
   font-size: 2vw;
+}
+
+.image-frame {
+  text-align: center;
+}
+
+.image-figure {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.image-post {
+  width:300px;
+  height: auto;
 }
 
 .wrapper-masthead {
