@@ -29,7 +29,7 @@ num = null; // 2
 # Tracing Strategy
 The GC work can be divided into two tasks: 
 1. How it finds dead objects
-2. What it does to it.
+2. What it does to them.
 
 The most common Garbage Collection strategy to find dead objects is Tracing. In this strategy the Garbage Collector is responsible for tracing all objects branching from GC roots. Those roots are objects outside Heap Memory, like System classes, Threads or method variables.
 
@@ -46,7 +46,7 @@ Whenever the GC cycle runs it traverses all objects and marks the dead ones, lat
 
 ## Copying Algorithm
 
-In this algorithm, the Heap Memory is divided in two spaces, called From and To. All new objects are created in the From space. When it’s full the GC copies the live objects to the To space and reclaims the From’s space used by dead objects.
+In this algorithm, the Heap Memory is divided in two spaces, called From and To. All new objects are created in the From space. When it’s full, the GC copies the live objects into the To space and reclaims the From’s space used by dead objects.
 
 The Copying algorithm deals with Mark-and-sweep’s fragmentation problem, since it copies the live objects and puts them side-by-side in the To space.
 However, by solving that problem, a new one arises: the Heap Memory is divided in two. That causes the GC cycle to run more often than it would if all the Heap Memory were being used for new objects.
@@ -81,7 +81,7 @@ Every object created will have an “age”. They get “older” every time a G
 
 Newly created objects are added to the Eden Space, that’s why the Mark-and-sweep Algorithm is used in this scenario. 
 
-Copying Algorithm wouldn’t be the best fit there because it divides the memory in two and the minor Garbage Collection Cycle would run often. Minor CG are quicker than major GC cycles and run in Young Generations. Mark-and-compact wouldn’t be the best fit here either, because most objects are short-lived. The large number of dead objects would force the GC to change the reference of the memory’s addresses constantly.
+Copying Algorithm wouldn’t be the best fit there because it divides the memory in two and the minor Garbage Collection Cycle would run often. Minor GC cycles are quicker than Major ones and run in Young Generations. Mark-and-compact wouldn’t be the best fit here either, because most objects are short-lived. The large number of dead objects would force the GC to change the reference of the memory’s addresses constantly.
 
 ### Survivor Space
 
