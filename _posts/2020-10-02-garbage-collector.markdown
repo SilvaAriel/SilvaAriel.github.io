@@ -8,9 +8,9 @@ tags:   java garbage-collection memory
 Object-Oriented Programming relies heavily on objects (hence the name). We create and use objects in Java all the time and yet we don’t really pay much attention to it. But each one of those objects take up space in the memory. And as we know, memory is finite.
 In theory, after we create so many objects the memory would be full and no objects would be created anymore. But that doesn’t happen. Why?
 
-# Garbage Collector
+# Garbage Collection
 
-Garbage Collector is an automatic memory manager. It is the process used by Java to free up unused memory. It does that by cleaning the [Heap Memory](https://stackoverflow.com/a/2308762/5491371) of unreferenced/unreachable objects and reclaiming the space back to be used by another object in the future.
+Garbage Collection is an automatic memory manager. It is the process used by Java to free up unused memory. It does that by cleaning the [Heap Memory](https://stackoverflow.com/a/2308762/5491371) of unreferenced/unreachable objects and reclaiming the space back to be used by another object in the future.
 In languages like C++, for example, you have to manually allocate memory (`malloc()` or `calloc()`) and then, later, deallocate it (`free()`). 
 
 But what happens if the programmer forgets to free up the memory after there’s no reference to the object? A Memory Leak. That happens when the memory used by the object is not released after it has no reference (the opposite would be [Dangling Pointer](https://en.wikipedia.org/wiki/Dangling_pointer)).
@@ -18,11 +18,11 @@ But what happens if the programmer forgets to free up the memory after there’s
 An example of unreachable object that would cause Memory Leak is:
 
 {% highlight java %}
-Integer num = new Integer(5); // 1
-num = null; // 2
+Integer num = new Integer(5);
+num = null;
 {% endhighlight %}
 
-The object Integer is added to the Heap Memory, making it a live object. Also, the variable “num” is added to the [Stack Memory](https://www.baeldung.com/java-stack-heap#stack-memory-in-java) with a pointer to the Integer’s address in Heap Memory.
+The Integer object is added to the Heap Memory, making it a live object. Also, the variable “num” is added to the [Stack Memory](https://www.baeldung.com/java-stack-heap#stack-memory-in-java) with a pointer to the Integer’s address in Heap Memory.
 
 Now the Integer object has no reference which means it’s unreachable. It’s a dead object.
 	If an unreachable object remains in the Heap Memory it might prevent JVM from allocating new objects in it. When this happens Java raises `java.lang.OutOfMemoryError`.
