@@ -46,6 +46,9 @@
    .post__tags-tag {
      position: relative;
      font-weight: 700;
+     &:hover {
+      color: $purple;
+    }
      // padding-left: 15px;
     //  &:before {
     //    content: "";
