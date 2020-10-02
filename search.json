@@ -1,9 +1,9 @@
 [
   
     {
-      "title"    : "Garbage Collection for Beginners",
+      "title"    : "Java&#39;s Garbage Collection for Beginners",
       "category" : "",
-      "tags"     : "java and garbage-collection",
+      "tags"     : "java, garbage-collection, and memory",
       "url"      : "/2020/10/02/garbage-collector/",
       "date"     : "2 Oct, 2020"
     } 
