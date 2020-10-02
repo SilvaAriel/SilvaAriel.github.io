@@ -4,7 +4,7 @@
 
   .post-title {
     margin-bottom: 10px;
-    width: 500px;
+    // width: 500px;
     max-width: 100%;
     font-size: 57px;
     line-height: 70px;
@@ -45,19 +45,19 @@
   .post__tags {
    .post__tags-tag {
      position: relative;
-     padding-left: 15px;
      font-weight: 700;
-     &:before {
-       content: "";
-       position: absolute;
-       top: 50%;
-       left: 0;
-       transform: translateY(-50%);
-       width: 5px;
-       height: 5px;
-       border-radius: 50%;
-       background: $dark;
-     }
+     // padding-left: 15px;
+    //  &:before {
+    //    content: "";
+    //    position: absolute;
+    //    top: 50%;
+    //    left: 0;
+    //    transform: translateY(-50%);
+    //    width: 5px;
+    //    height: 5px;
+    //    border-radius: 50%;
+    //    background: $dark;
+    //  }
    } 
   }
 }
@@ -234,5 +234,5 @@
 }
 
 code {
-  color: #4CAF50;
+  color: $purple;
 }
