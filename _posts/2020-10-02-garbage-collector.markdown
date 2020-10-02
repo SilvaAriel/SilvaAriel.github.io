@@ -18,14 +18,13 @@ But what happens if the programmer forgets to free up the memory after there’s
 An example of unreachable object that would cause Memory Leak is:
 
 {% highlight java %}
-Integer num = new Integer(5);
-num = null;
+Integer num = new Integer(5); // 1 
+num = null; // 2
 {% endhighlight %}
 
-The Integer object is added to the Heap Memory, making it a live object. Also, the variable “num” is added to the [Stack Memory](https://www.baeldung.com/java-stack-heap#stack-memory-in-java) with a pointer to the Integer’s address in Heap Memory.
+1 - The Integer object is added to the Heap Memory, making it a live object. Also, the variable “num” is added to the [Stack Memory](https://www.baeldung.com/java-stack-heap#stack-memory-in-java) with a pointer to the Integer’s address in Heap Memory.
 
-Now the Integer object has no reference which means it’s unreachable. It’s a dead object.
-	If an unreachable object remains in the Heap Memory it might prevent JVM from allocating new objects in it. When this happens Java raises `java.lang.OutOfMemoryError`.
+2 - Now the object Integer has no reference which means it’s unreachable. It’s a dead object. If an unreachable object remains in the Heap Memory it might prevent JVM from allocating new objects in it. When this happens Java raises `java.lang.OutOfMemoryError`.
 
 # Tracing Strategy
 The GC work can be divided into two tasks: 
