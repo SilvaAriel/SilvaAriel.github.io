@@ -164,19 +164,19 @@
         <p>Object-Oriented Programming relies heavily on objects (hence the name). We create and use objects in Java all the time and yet we don’t really pay much attention to it. But each one of those objects take up space in the memory. And as we know, memory is finite.
 In theory, after we create so many objects the memory would be full and no objects would be created anymore. But that doesn’t happen. Why?</p>
 
-<h1 id="garbage-collector">Garbage Collector</h1>
+<h1 id="garbage-collection">Garbage Collection</h1>
 
-<p>Garbage Collector is an automatic memory manager. It is the process used by Java to free up unused memory. It does that by cleaning the <a href="https://stackoverflow.com/a/2308762/5491371">Heap Memory</a> of unreferenced/unreachable objects and reclaiming the space back to be used by another object in the future.
+<p>Garbage Collection is an automatic memory manager. It is the process used by Java to free up unused memory. It does that by cleaning the <a href="https://stackoverflow.com/a/2308762/5491371">Heap Memory</a> of unreferenced/unreachable objects and reclaiming the space back to be used by another object in the future.
 In languages like C++, for example, you have to manually allocate memory (<code class="language-plaintext highlighter-rouge">malloc()</code> or <code class="language-plaintext highlighter-rouge">calloc()</code>) and then, later, deallocate it (<code class="language-plaintext highlighter-rouge">free()</code>).</p>
 
 <p>But what happens if the programmer forgets to free up the memory after there’s no reference to the object? A Memory Leak. That happens when the memory used by the object is not released after it has no reference (the opposite would be <a href="https://en.wikipedia.org/wiki/Dangling_pointer">Dangling Pointer</a>).</p>
 
 <p>An example of unreachable object that would cause Memory Leak is:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Integer</span> <span class="n">num</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Integer</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span> <span class="c1">// 1</span>
-<span class="n">num</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">// 2</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Integer</span> <span class="n">num</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Integer</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
+<span class="n">num</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span></code></pre></figure>
 
-<p>The object Integer is added to the Heap Memory, making it a live object. Also, the variable “num” is added to the <a href="https://www.baeldung.com/java-stack-heap#stack-memory-in-java">Stack Memory</a> with a pointer to the Integer’s address in Heap Memory.</p>
+<p>The Integer object is added to the Heap Memory, making it a live object. Also, the variable “num” is added to the <a href="https://www.baeldung.com/java-stack-heap#stack-memory-in-java">Stack Memory</a> with a pointer to the Integer’s address in Heap Memory.</p>
 
 <p>Now the Integer object has no reference which means it’s unreachable. It’s a dead object.
 	If an unreachable object remains in the Heap Memory it might prevent JVM from allocating new objects in it. When this happens Java raises <code class="language-plaintext highlighter-rouge">java.lang.OutOfMemoryError</code>.</p>
