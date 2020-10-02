@@ -173,13 +173,12 @@ In languages like C++, for example, you have to manually allocate memory (<code 
 
 <p>An example of unreachable object that would cause Memory Leak is:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Integer</span> <span class="n">num</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Integer</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span>
-<span class="n">num</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span></code></pre></figure>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Integer</span> <span class="n">num</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Integer</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span> <span class="c1">// 1 </span>
+<span class="n">num</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">// 2</span></code></pre></figure>
 
-<p>The Integer object is added to the Heap Memory, making it a live object. Also, the variable “num” is added to the <a href="https://www.baeldung.com/java-stack-heap#stack-memory-in-java">Stack Memory</a> with a pointer to the Integer’s address in Heap Memory.</p>
+<p>1 - The Integer object is added to the Heap Memory, making it a live object. Also, the variable “num” is added to the <a href="https://www.baeldung.com/java-stack-heap#stack-memory-in-java">Stack Memory</a> with a pointer to the Integer’s address in Heap Memory.</p>
 
-<p>Now the Integer object has no reference which means it’s unreachable. It’s a dead object.
-	If an unreachable object remains in the Heap Memory it might prevent JVM from allocating new objects in it. When this happens Java raises <code class="language-plaintext highlighter-rouge">java.lang.OutOfMemoryError</code>.</p>
+<p>2 - Now the object Integer has no reference which means it’s unreachable. It’s a dead object. If an unreachable object remains in the Heap Memory it might prevent JVM from allocating new objects in it. When this happens Java raises <code class="language-plaintext highlighter-rouge">java.lang.OutOfMemoryError</code>.</p>
 
 <h1 id="tracing-strategy">Tracing Strategy</h1>
 <p>The GC work can be divided into two tasks:</p>
