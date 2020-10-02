@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>/2020/10/02/garbage-collector/</loc>
+<loc>https://silvaariel.github.io//2020/10/02/garbage-collector/</loc>
 <lastmod>2020-10-02T07:00:55-03:00</lastmod>
 </url>
 <url>
-<loc>/about/</loc>
+<loc>https://silvaariel.github.io//about/</loc>
 </url>
 <url>
-<loc>/</loc>
+<loc>https://silvaariel.github.io//</loc>
 </url>
 <url>
-<loc>/tag/java/</loc>
+<loc>https://silvaariel.github.io//tag/java/</loc>
 </url>
 <url>
-<loc>/tag/garbage-collection/</loc>
+<loc>https://silvaariel.github.io//tag/garbage-collection/</loc>
 </url>
 <url>
-<loc>/tag/memory/</loc>
+<loc>https://silvaariel.github.io//tag/memory/</loc>
 </url>
 </urlset>
