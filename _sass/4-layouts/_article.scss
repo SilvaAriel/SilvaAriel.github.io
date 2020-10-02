@@ -48,7 +48,7 @@
       a {
         color: $dark;
         &:hover {
-          color: $black;
+          color: $purple;
         }
       }
     }
@@ -78,7 +78,7 @@
         letter-spacing: 1px;
         text-transform: uppercase;
         border-bottom: 1px solid transparent;
-        color: $gray;
+        color: #ff9f00;
         &:hover {
           color: $dark;
           border-color: $brand-color;

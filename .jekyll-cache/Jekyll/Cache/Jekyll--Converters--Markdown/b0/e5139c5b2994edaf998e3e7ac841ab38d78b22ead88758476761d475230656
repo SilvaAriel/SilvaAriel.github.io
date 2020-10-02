@@ -1,0 +1,121 @@
+I"g)<p>      Object-Oriented Programming relies heavily on objects (hence the name). We create and use objects in Java all the time and yet we don’t really pay much attention to it. But each one of those objects take up space in the memory. And as we know, memory is finite.
+In theory, after we create so many objects the memory would be full and no objects would be created anymore. But that doesn’t happen. Why?</p>
+
+<h1 id="garbage-collector">Garbage Collector</h1>
+
+<p>      Garbage Collector is an automatic memory manager. It is the process used by Java to free up unused memory. It does that by cleaning the <a href="https://stackoverflow.com/a/2308762/5491371">Heap Memory</a> of unreferenced/unreachable objects and reclaiming the space back to be used by another object in the future.
+In languages like C++, for example, you have to manually allocate memory (<code class="language-plaintext highlighter-rouge">malloc()</code> or <code class="language-plaintext highlighter-rouge">calloc()</code>) and then, later, deallocate it (<code class="language-plaintext highlighter-rouge">free()</code>).</p>
+
+<p>      But what happens if the programmer forgets to free up the memory after there’s no reference to the object? A Memory Leak. That happens when the memory used by the object is not released after it has no reference (the opposite would be <a href="https://en.wikipedia.org/wiki/Dangling_pointer">Dangling Pointer</a>).</p>
+
+<p>An example of unreachable object that would cause Memory Leak is:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Integer</span> <span class="n">num</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Integer</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span> <span class="c1">// 1</span>
+<span class="n">num</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">// 2</span></code></pre></figure>
+
+<p>      The object Integer is added to the Heap Memory, making it a live object. Also, the variable “num” is added to the <a href="https://www.baeldung.com/java-stack-heap#stack-memory-in-java">Stack Memory</a> with a pointer to the Integer’s address in Heap Memory.</p>
+
+<p>      Now the Integer object has no reference which means it’s unreachable. It’s a dead object.
+	If an unreachable object remains in the Heap Memory it might prevent JVM from allocating new objects in it. When this happens Java raises <code class="language-plaintext highlighter-rouge">java.lang.OutOfMemoryError</code>.</p>
+
+<h1 id="tracing-strategy">Tracing Strategy</h1>
+<p>The GC work can be divided into two tasks:</p>
+<ol>
+  <li>how it finds dead objects</li>
+  <li>what it does to it.</li>
+</ol>
+
+<p>      The most common Garbage Collection strategy to find dead objects is Tracing. In this strategy the Garbage Collector is responsible for tracing all objects branching from GC roots. Those roots are objects outside Heap Memory, like System classes, Threads or method variables.</p>
+
+<p>      This strategy uses these algorithms to deal with dead objects: Copying Algorithm, Mark-and-sweep Algorithm and Mark-and-Compact Algorithm.</p>
+
+<h2 id="mark-and-sweep-algorithm">Mark-and-sweep Algorithm</h2>
+<p>      This algorithm is divided into two processes: marking the dead objects and then reclaiming their spaces.
+This is the most common and simple algorithm. But its weakness is in its simplicity.</p>
+
+<p>      Whenever the GC cycle runs it traverses all objects and marks the dead ones, later they will be swept leaving empty spaces in the memory. Those spaces could be small or big and depending on the size of the new object it might not fit on any of those spaces. This whole process leaves the memory fragmented.</p>
+
+<p><img src="/images/mark-and-sweep.png" alt="" />
+<em>Source: <a href="https://medium.com/@alitech_2017/how-does-garbage-collection-work-in-java-cf4e31343e43">How Does Garbage Collection Work in Java? | by Alibaba Tech</a></em></p>
+
+<h2 id="copying-algorithm">Copying Algorithm</h2>
+
+<p>      In this algorithm, the Heap Memory is divided in two spaces, called From and To. All new objects are created in the From space. When it’s full the GC copies the live objects to the To space and reclaims the From’s space used by dead objects.</p>
+
+<p>      The Copying algorithm deals with Mark-and-sweep’s fragmentation problem, since it copies the live objects and puts them side-by-side in the To space.
+However, by solving that problem, a new one arises: the Heap Memory is divided in two. That causes the GC cycle to run more often than it would if all the Heap Memory were being used for new objects.</p>
+
+<p><img src="/images/copying.png" alt="" />
+<em>Source: <a href="https://medium.com/@alitech_2017/how-does-garbage-collection-work-in-java-cf4e31343e43">How Does Garbage Collection Work in Java? | by Alibaba Tech</a></em></p>
+
+<h2 id="mark-and-compact-algorithm">Mark-and-Compact Algorithm</h2>
+<p>      This algorithm is an extension of Mark-and-sweep.</p>
+
+<p>      It doesn’t leave the memory fragmented when the space is reclaimed. Instead, it sorts the memory by moving all living objects to one side and then it reclaims the marked space. Mark-and-Compact also solves the problem raised by Copying Algorithm, because it uses the whole Heap Memory.</p>
+
+<p>      Even if it solves both of the problems created by the preceding algorithms, it comes with a price. Everytime the GC cycle runs it has to sort out every reference address. That makes this algorithm less efficient than the others.</p>
+
+<p><img src="/images/mark-and-compact.png" alt="" />
+<em>Source: <a href="https://medium.com/@alitech_2017/how-does-garbage-collection-work-in-java-cf4e31343e43">How Does Garbage Collection Work in Java? | by Alibaba Tech</a></em></p>
+
+<h2 id="generational-collection-algorithm">Generational Collection Algorithm</h2>
+
+<p>      This algorithm combines the above algorithms and applies them in the scenario they best fit.</p>
+
+<p>      Every object created will have an “age”. They get “older” every time a Garbage Collection Cycle happens. Java separates them in two parts in the Memory Heap:</p>
+
+<ul>
+  <li><strong>Young Generation</strong>, divided in:
+    <ul>
+      <li>Eden Space</li>
+      <li>Survivor Space</li>
+    </ul>
+  </li>
+  <li><strong>Old Generation</strong>, divided in:
+    <ul>
+      <li>Tenured Space</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="eden-space">Eden Space</h3>
+
+<p>      Newly created objects are added to the Eden Space, that’s why the Mark-and-sweep Algorithm is used in this scenario.</p>
+
+<p>      Copying Algorithm wouldn’t be the best fit there because it divides the memory in two and the minor Garbage Collection Cycle would run often. Minor CG are quicker than major GC cycles and run in Young Generations. Mark-and-compact wouldn’t be the best fit here either, because most objects are short-lived. The large number of dead objects would force the GC to change the reference of the memory’s addresses constantly.</p>
+
+<h3 id="survivor-space">Survivor Space</h3>
+
+<p>      After a minor GC cycle, all living objects in Eden Space will be moved to  Survivor Space. It stores objects that have lived for a while, so it doesn’t require as much space as Eden Space does, that’s why the Copying Algorithm suits here.</p>
+
+<p>      Objects coming from Eden Space are stored in Survivor’s From space. If From is full, the objects will go directly to Tenured Space.</p>
+
+<p>      After another minor GC the living objects from Eden Space and From space (Survivor Space) are moved to the To space.</p>
+
+<p>      This last part deserves attention. The living objects from Eden will be moved to the To Space, not the From Space. This happens because the minor GC will also reclaim dead objects from the From Space, leaving it fragmented. So it might not have enough space for the objects coming from Eden. In the next cycle the objects will be moved to the From Space, including the living objects from To Space until they reach a certain threshold (15 by default) and are moved to the Old Generation.</p>
+
+<p>      It’s worth saying that every Garbage Collection is a “Stop-the-World” event. This means all threads are stopped until the Garbage Collection completes.</p>
+
+<h3 id="tenured-space">Tenured Space</h3>
+<p>      After multiple Minor Garbage Collection Cycles, the objects from Young Generation will be moved to Tenured Space (Old Generation).</p>
+
+<p>      Since those objects are long-lived and their spaces will hardly be reclaimed, the Mark-and-Compact algorithm will be applied here.</p>
+
+<p>      When the Tenured Space is filled up a Major GC will be triggered.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+<p>      Memory management is tough (ask the C++ people), but we forget about that because the work is done for us automatically. However, every automation comes with a price.</p>
+
+<p>      Depending on the application’s size the GC might have a major impact on its performance, due to the Stop-the-World event. It’s up to your team to tweak the GC to fit your needs and achieve the performance expected.</p>
+
+<h1 id="where-can-you-go-from-here">Where can you go from here?</h1>
+<p>Here are some good articles to learn more about Garbage Collection:</p>
+<ul>
+  <li><a href="https://plumbr.io/landing/handbook-java-garbage-collection">Ebook: Java Garbage Collection Handbook</a></li>
+  <li><a href="https://www.oracle.com/webfolder/technetwork/tutorials/obe/java/gc01/index.html">Java Garbage Collection Basics by Oracle</a></li>
+  <li><a href="https://medium.com/@alitech_2017/how-does-garbage-collection-work-in-java-cf4e31343e43">How Does Garbage Collection Work in Java?</a></li>
+  <li><a href="https://www.dynatrace.com/resources/ebooks/javabook/how-garbage-collection-works/">How Java Garbage Collection Works</a></li>
+  <li><a href="https://www.infoworld.com/article/2078645/jvm-performance-optimization-part-3-garbage-collection.html">JVM performance optimization, Part 3: Garbage collection</a></li>
+  <li><a href="https://plumbr.io/blog/garbage-collection/gc-impact-on-throughput-and-latency">GC impact on throughput and latency</a></li>
+</ul>
+:ET
