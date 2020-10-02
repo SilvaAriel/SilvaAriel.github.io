@@ -29,8 +29,8 @@ num = null; // 2
 
 # Tracing Strategy
 The GC work can be divided into two tasks: 
-1. how it finds dead objects
-2. what it does to it.
+1. How it finds dead objects
+2. What it does to it.
 
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;The most common Garbage Collection strategy to find dead objects is Tracing. In this strategy the Garbage Collector is responsible for tracing all objects branching from GC roots. Those roots are objects outside Heap Memory, like System classes, Threads or method variables.
 
