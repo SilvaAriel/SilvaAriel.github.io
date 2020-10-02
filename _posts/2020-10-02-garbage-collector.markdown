@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Garbage Collection for Beginners"
+title:  "Java's Garbage Collection for Beginners"
 date:   2020-10-02 07:00:55 -0300
 image:  garbage_collector.png
-tags:   java garbage-collection
+tags:   java garbage-collection memory
 ---
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Object-Oriented Programming relies heavily on objects (hence the name). We create and use objects in Java all the time and yet we don’t really pay much attention to it. But each one of those objects take up space in the memory. And as we know, memory is finite.
 In theory, after we create so many objects the memory would be full and no objects would be created anymore. But that doesn’t happen. Why?

@@ -48,7 +48,10 @@
 
 .contact-logo {
   font-size: 25px;
-  color: #5800ff
+  color: $dark;
+  &:hover {
+    color: $purple;
+  }
 }
 
 .main-nav {

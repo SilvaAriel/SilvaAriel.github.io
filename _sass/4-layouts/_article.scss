@@ -39,6 +39,9 @@
       letter-spacing: 0.5px;
       font-weight: 700;
       text-transform: uppercase;
+      &:hover {
+        color: $purple;
+      }
     }
 
     .article__title {
