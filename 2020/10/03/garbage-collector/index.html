@@ -217,7 +217,7 @@ However, by solving that problem, a new one arises: the Heap Memory is divided i
 
 <p>It doesn’t leave the memory fragmented when the space is reclaimed. Instead, it sorts the memory by moving all living objects to one side and then it reclaims the marked space. Mark-and-Compact also solves the problem raised by Copying Algorithm, because it uses the whole Heap Memory.</p>
 
-<p>Even if it solves both of the problems created by the preceding algorithms, it comes with a price. Everytime the GC cycle runs it has to sort out every reference address. That makes this algorithm less efficient than the others.</p>
+<p>Even if it solves both of the problems created by the preceding algorithms, it comes with a price. Every time the GC cycle runs it has to sort out every reference address. That makes this algorithm less efficient than the others.</p>
 
 <p><img src="/images/mark-and-compact.png" alt="" />
 <em>Source: <a href="https://medium.com/@alitech_2017/how-does-garbage-collection-work-in-java-cf4e31343e43">How Does Garbage Collection Work in Java? | by Alibaba Tech</a></em></p>
