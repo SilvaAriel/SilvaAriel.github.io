@@ -9,7 +9,7 @@
   <title>Java's Garbage Collection for Beginners</title>
   <meta name='description' content=''>
 
-  <link rel="canonical" href="https://silvaariel.github.io//2020/10/02/garbage-collector/">
+  <link rel="canonical" href="https://silvaariel.github.io//2020/10/03/garbage-collector/">
   <link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
 
   <!-- Fonts -->
@@ -118,7 +118,7 @@
     <div class="row">
       <div class="col col-10 push-2 col-11 push-t-1 col-m-12 push-m-0">
         <span class="post__date">
-          <time datetime="2020-10-02T07:00:55-03:00">Oct 02, 2020</time>
+          <time datetime="2020-10-03T07:30:00-03:00">Oct 03, 2020</time>
         </span>
 
         <h1 class="post-title">Java&#39;s Garbage Collection for Beginners</h1>
@@ -169,16 +169,18 @@ In theory, after we create so many objects the memory would be full and no objec
 <p>Garbage Collection is an automatic memory manager. It is the process used by Java to free up unused memory. It does that by cleaning the <a href="https://stackoverflow.com/a/2308762/5491371">Heap Memory</a> of unreferenced/unreachable objects and reclaiming the space back to be used by another object in the future.
 In languages like C++, for example, you have to manually allocate memory (<code class="language-plaintext highlighter-rouge">malloc()</code> or <code class="language-plaintext highlighter-rouge">calloc()</code>) and then, later, deallocate it (<code class="language-plaintext highlighter-rouge">free()</code>).</p>
 
-<p>But what happens if the programmer forgets to free up the memory after there’s no reference to the object? A Memory Leak. That happens when the memory used by the object is not released after it has no reference (the opposite would be <a href="https://en.wikipedia.org/wiki/Dangling_pointer">Dangling Pointer</a>).</p>
+<p>But what happens if the programmer forgets to free up the memory after there’s no reference to the object? A Memory Leak. This happens when the memory used by the object is not released after it has no reference (the opposite would be <a href="https://en.wikipedia.org/wiki/Dangling_pointer">Dangling Pointer</a>).</p>
 
 <p>An example of unreachable object that would cause Memory Leak is:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nc">Integer</span> <span class="n">num</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Integer</span><span class="o">(</span><span class="mi">5</span><span class="o">);</span> <span class="c1">// 1 </span>
 <span class="n">num</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span> <span class="c1">// 2</span></code></pre></figure>
 
-<p>1 - The Integer object is added to the Heap Memory, making it a live object. Also, the variable “num” is added to the <a href="https://www.baeldung.com/java-stack-heap#stack-memory-in-java">Stack Memory</a> with a pointer to the Integer’s address in Heap Memory.</p>
+<p>1 - The Integer object is added to the Heap Memory. Also, the variable “num” is added to the <a href="https://www.baeldung.com/java-stack-heap#stack-memory-in-java">Stack Memory</a> with a pointer to the Integer’s address in Heap Memory, making the Integer a live object</p>
 
-<p>2 - Now the object Integer has no reference which means it’s unreachable. It’s a dead object. If an unreachable object remains in the Heap Memory it might prevent JVM from allocating new objects in it. When this happens Java raises <code class="language-plaintext highlighter-rouge">java.lang.OutOfMemoryError</code>.</p>
+<p>2 - Now the Integer object has no reference which means it’s unreachable. It’s a dead object. If an unreachable object remains in the Heap Memory it might prevent JVM from allocating new objects in it. When this happens Java raises <code class="language-plaintext highlighter-rouge">java.lang.OutOfMemoryError</code>.</p>
+
+<p>It might look like a simple process but the Garbage Collector needs a complex strategy to deal with all the live and dead objects.</p>
 
 <h1 id="tracing-strategy">Tracing Strategy</h1>
 <p>The GC work can be divided into two tasks:</p>
@@ -220,9 +222,13 @@ However, by solving that problem, a new one arises: the Heap Memory is divided i
 <p><img src="/images/mark-and-compact.png" alt="" />
 <em>Source: <a href="https://medium.com/@alitech_2017/how-does-garbage-collection-work-in-java-cf4e31343e43">How Does Garbage Collection Work in Java? | by Alibaba Tech</a></em></p>
 
+<p>We’ve seen that each algorithm has its strengths and weaknesses. How can we go about choosing one among them?</p>
+
+<p>Why should we choose one? Wouldn’t it be better to use them all?</p>
+
 <h2 id="generational-collection-algorithm">Generational Collection Algorithm</h2>
 
-<p>This algorithm combines the above algorithms and applies them in the scenario they best fit.</p>
+<p>Enters Generational Collection Algorithm. It combines all the above algorithms and applies them in the scenario they best fit.</p>
 
 <p>Every object created will have an “age”. They get “older” every time a Garbage Collection Cycle happens. Java separates them in two parts in the Memory Heap:</p>
 
@@ -287,24 +293,24 @@ However, by solving that problem, a new one arises: the Heap Memory is divided i
         <span class="share__title">Share this article:</span>
         <ul class="share__list list-reset">
           <li class="share__item">
-            <a class="share__facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://silvaariel.github.io//2020/10/02/garbage-collector/"
+            <a class="share__facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://silvaariel.github.io//2020/10/03/garbage-collector/"
               onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
               title="Share on Facebook" rel="nofollow"><i class="ion ion-logo-facebook"></i></a>
           </li>
 
           <li class="share__item">
-            <a class="share__twitter" href="https://twitter.com/intent/tweet?text=Java's%20Garbage%20Collection%20for%20Beginners&url=https://silvaariel.github.io//2020/10/02/garbage-collector/"
+            <a class="share__twitter" href="https://twitter.com/intent/tweet?text=Java's%20Garbage%20Collection%20for%20Beginners&url=https://silvaariel.github.io//2020/10/03/garbage-collector/"
               onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
               title="Share on Twitter" rel="nofollow"><i class="ion ion-logo-twitter"></i></a>
           </li>
 
           <li class="share__item">
-            <a class="share__linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https://silvaariel.github.io//2020/10/02/garbage-collector/&title=Java's%20Garbage%20Collection%20for%20Beginners&summary=&source="
+            <a class="share__linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https://silvaariel.github.io//2020/10/03/garbage-collector/&title=Java's%20Garbage%20Collection%20for%20Beginners&summary=&source="
               onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" rel="nofollow"><i class="ion ion-logo-linkedin"></i></a>
           </li>
 
           <li class="share__item">
-            <a class="share__pinterest" href="http://pinterest.com/pin/create/button/?url=https://silvaariel.github.io//2020/10/02/garbage-collector/&amp;media=https://silvaariel.github.io//images/garbage_collector.png&amp;description=Java's%20Garbage%20Collection%20for%20Beginners"
+            <a class="share__pinterest" href="http://pinterest.com/pin/create/button/?url=https://silvaariel.github.io//2020/10/03/garbage-collector/&amp;media=https://silvaariel.github.io//images/garbage_collector.png&amp;description=Java's%20Garbage%20Collection%20for%20Beginners"
               onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=900,height=500,toolbar=1,resizable=0'); return false;" title="Share on Pinterest"
               rel="nofollow"><i class="ion ion-logo-pinterest"></i></a>
           </li>
