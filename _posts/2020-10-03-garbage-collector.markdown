@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Java's Garbage Collection for Beginners"
-date:   2020-10-02 07:00:55 -0300
+date:   2020-10-03 07:30:00 -0300
 image:  garbage_collector.png
 tags:   java garbage-collection memory
 ---
@@ -13,7 +13,7 @@ In theory, after we create so many objects the memory would be full and no objec
 Garbage Collection is an automatic memory manager. It is the process used by Java to free up unused memory. It does that by cleaning the [Heap Memory](https://stackoverflow.com/a/2308762/5491371) of unreferenced/unreachable objects and reclaiming the space back to be used by another object in the future.
 In languages like C++, for example, you have to manually allocate memory (`malloc()` or `calloc()`) and then, later, deallocate it (`free()`). 
 
-But what happens if the programmer forgets to free up the memory after there’s no reference to the object? A Memory Leak. That happens when the memory used by the object is not released after it has no reference (the opposite would be [Dangling Pointer](https://en.wikipedia.org/wiki/Dangling_pointer)).
+But what happens if the programmer forgets to free up the memory after there’s no reference to the object? A Memory Leak. This happens when the memory used by the object is not released after it has no reference (the opposite would be [Dangling Pointer](https://en.wikipedia.org/wiki/Dangling_pointer)).
 
 An example of unreachable object that would cause Memory Leak is:
 
@@ -22,9 +22,11 @@ Integer num = new Integer(5); // 1
 num = null; // 2
 {% endhighlight %}
 
-1 - The Integer object is added to the Heap Memory, making it a live object. Also, the variable “num” is added to the [Stack Memory](https://www.baeldung.com/java-stack-heap#stack-memory-in-java) with a pointer to the Integer’s address in Heap Memory.
+1 - The Integer object is added to the Heap Memory. Also, the variable “num” is added to the [Stack Memory](https://www.baeldung.com/java-stack-heap#stack-memory-in-java) with a pointer to the Integer’s address in Heap Memory, making the Integer a live object
 
-2 - Now the object Integer has no reference which means it’s unreachable. It’s a dead object. If an unreachable object remains in the Heap Memory it might prevent JVM from allocating new objects in it. When this happens Java raises `java.lang.OutOfMemoryError`.
+2 - Now the Integer object has no reference which means it’s unreachable. It’s a dead object. If an unreachable object remains in the Heap Memory it might prevent JVM from allocating new objects in it. When this happens Java raises `java.lang.OutOfMemoryError`.
+
+It might look like a simple process but the Garbage Collector needs a complex strategy to deal with all the live and dead objects.
 
 # Tracing Strategy
 The GC work can be divided into two tasks: 
@@ -64,9 +66,13 @@ Even if it solves both of the problems created by the preceding algorithms, it c
 ![]({{ site.baseurl }}/images/mark-and-compact.png)
 *Source: [How Does Garbage Collection Work in Java? | by Alibaba Tech](https://medium.com/@alitech_2017/how-does-garbage-collection-work-in-java-cf4e31343e43)*
 
+We've seen that each algorithm has its strengths and weaknesses. How can we go about choosing one among them? 
+
+Why should we choose one? Wouldn't it be better to use them all?
+
 ## Generational Collection Algorithm
 
-This algorithm combines the above algorithms and applies them in the scenario they best fit.
+Enters Generational Collection Algorithm. It combines all the above algorithms and applies them in the scenario they best fit.
 
 Every object created will have an “age”. They get “older” every time a Garbage Collection Cycle happens. Java separates them in two parts in the Memory Heap:
 
