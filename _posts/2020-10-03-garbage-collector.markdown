@@ -41,14 +41,14 @@ This strategy uses these algorithms to deal with dead objects: Copying Algorithm
 This algorithm is divided into two processes: marking the dead objects and then reclaiming their spaces.
 This is the most common and simple algorithm. But its weakness is in its simplicity. 
 
-Whenever the GC cycle runs it traverses all objects and marks the dead ones, later they will be swept leaving empty spaces in the memory. Those spaces could be small or big and depending on the size of the new object it might not fit on any of those spaces. This whole process leaves the memory fragmented.
+Whenever the GC cycle runs it traverses all objects and marks the live ones, later they will be swept leaving empty spaces in the memory. Those spaces could be small or big and depending on the size of the new object it might not fit on any of those spaces. This whole process leaves the memory fragmented.
 
 ![]({{ site.baseurl }}/images/mark-and-sweep.png)
 *Source: [How Does Garbage Collection Work in Java? | by Alibaba Tech](https://medium.com/@alitech_2017/how-does-garbage-collection-work-in-java-cf4e31343e43)*
 
 ## Copying Algorithm
 
-In this algorithm, the Heap Memory is divided in two spaces, called From and To. All new objects are created in the From space. When it’s full, the GC copies the live objects into the To space and reclaims the From’s space used by dead objects.
+In this algorithm, the Heap Memory is divided into two spaces, called From and To. All new objects are created in the From space. When it’s full, the GC copies the live objects into the To space and reclaims the From’s space used by dead objects.
 
 The Copying algorithm deals with Mark-and-sweep’s fragmentation problem, since it copies the live objects and puts them side-by-side in the To space.
 However, by solving that problem, a new one arises: the Heap Memory is divided in two. That causes the GC cycle to run more often than it would if all the Heap Memory were being used for new objects.
@@ -74,7 +74,7 @@ Why should we choose one? Wouldn't it be better to use them all?
 
 Enters Generational Collection Algorithm. It combines all the above algorithms and applies them in the scenario they best fit.
 
-Every object created will have an “age”. They get “older” every time a Garbage Collection Cycle happens. Java separates them in two parts in the Memory Heap:
+Every object created will have an “age”. They get “older” every time a Garbage Collection Cycle happens. Java separates them into two parts in the Memory Heap:
 
 * **Young Generation**, divided in:
     * Eden Space
