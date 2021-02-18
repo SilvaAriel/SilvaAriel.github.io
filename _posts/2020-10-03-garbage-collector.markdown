@@ -38,10 +38,10 @@ The most common Garbage Collection strategy to find dead objects is Tracing. In 
 This strategy uses these algorithms to deal with dead objects: Copying Algorithm, Mark-and-sweep Algorithm and Mark-and-Compact Algorithm.
 
 ## Mark-and-sweep Algorithm
-This algorithm is divided into two processes: marking the dead objects and then reclaiming their spaces.
+This algorithm is divided into two processes: marking live objects and reclaiming dead objects' spaces.
 This is the most common and simple algorithm. But its weakness is in its simplicity. 
 
-Whenever the GC cycle runs it traverses all objects and marks the live ones, later they will be swept leaving empty spaces in the memory. Those spaces could be small or big and depending on the size of the new object it might not fit on any of those spaces. This whole process leaves the memory fragmented.
+Whenever the GC cycle runs it traverses all objects and marks live ones, and later dead objects will be swept leaving empty spaces in the memory. Those spaces can be small or big and depending on the size of the new object it might not fit on any of those spaces. This whole process leaves the memory fragmented.
 
 ![]({{ site.baseurl }}/images/mark-and-sweep.png)
 *Source: [How Does Garbage Collection Work in Java? | by Alibaba Tech](https://medium.com/@alitech_2017/how-does-garbage-collection-work-in-java-cf4e31343e43)*
@@ -87,7 +87,7 @@ Every object created will have an “age”. They get “older” every time a G
 
 Newly created objects are added to the Eden Space, that’s why the Mark-and-sweep Algorithm is used in this scenario. 
 
-Copying Algorithm wouldn’t be the best fit there because it divides the memory in two and the minor Garbage Collection Cycle would run often. Minor GC cycles are quicker than Major ones and run in Young Generations. Mark-and-compact wouldn’t be the best fit here either, because most objects are short-lived. The large number of dead objects would force the GC to change the reference of the memory’s addresses constantly.
+Copying Algorithm wouldn’t be the best fit here because it divides the memory in two and the minor Garbage Collection Cycle would run often. Minor GC cycles are quicker than Major ones and run in Young Generations. Mark-and-compact wouldn’t be the best fit here either, because most objects are short-lived. The large number of dead objects would force the GC to change the reference of the memory’s addresses constantly.
 
 ### Survivor Space
 
@@ -111,7 +111,7 @@ When the Tenured Space is filled up a Major GC will be triggered.
 # Conclusion
 Memory management is tough (ask the C++ people), but we forget about that because the work is done for us automatically. However, every automation comes with a price.
 
-Depending on the application’s size the GC might have a major impact on its performance, due to the Stop-the-World event. It’s up to your team to tweak the GC to fit your needs and achieve the performance expected.
+Depending on the application’s size the GC might have a major impact on its performance, due to the Stop-the-World event. It’s up to your team to tweak the GC to fit your needs and achieve the expected performance.
 
 # Where can you go from here?
 Here are some good articles to learn more about Garbage Collection:
