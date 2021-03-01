@@ -94,6 +94,22 @@
               
                 
               
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
             </ul>
 
           </div>
@@ -194,10 +210,10 @@ In languages like C++, for example, you have to manually allocate memory (<code 
 <p>This strategy uses these algorithms to deal with dead objects: Copying Algorithm, Mark-and-sweep Algorithm and Mark-and-Compact Algorithm.</p>
 
 <h2 id="mark-and-sweep-algorithm">Mark-and-sweep Algorithm</h2>
-<p>This algorithm is divided into two processes: marking the dead objects and then reclaiming their spaces.
+<p>This algorithm is divided into two processes: marking live objects and reclaiming dead objects’ spaces.
 This is the most common and simple algorithm. But its weakness is in its simplicity.</p>
 
-<p>Whenever the GC cycle runs it traverses all objects and marks the live ones, later they will be swept leaving empty spaces in the memory. Those spaces could be small or big and depending on the size of the new object it might not fit on any of those spaces. This whole process leaves the memory fragmented.</p>
+<p>Whenever the GC cycle runs it traverses all objects and marks live ones, and later dead objects will be swept leaving empty spaces in the memory. Those spaces can be small or big and depending on the size of the new object it might not fit on any of those spaces. This whole process leaves the memory fragmented.</p>
 
 <p><img src="/images/mark-and-sweep.png" alt="" />
 <em>Source: <a href="https://medium.com/@alitech_2017/how-does-garbage-collection-work-in-java-cf4e31343e43">How Does Garbage Collection Work in Java? | by Alibaba Tech</a></em></p>
@@ -250,7 +266,7 @@ However, by solving that problem, a new one arises: the Heap Memory is divided i
 
 <p>Newly created objects are added to the Eden Space, that’s why the Mark-and-sweep Algorithm is used in this scenario.</p>
 
-<p>Copying Algorithm wouldn’t be the best fit there because it divides the memory in two and the minor Garbage Collection Cycle would run often. Minor GC cycles are quicker than Major ones and run in Young Generations. Mark-and-compact wouldn’t be the best fit here either, because most objects are short-lived. The large number of dead objects would force the GC to change the reference of the memory’s addresses constantly.</p>
+<p>Copying Algorithm wouldn’t be the best fit here because it divides the memory in two and the minor Garbage Collection Cycle would run often. Minor GC cycles are quicker than Major ones and run in Young Generations. Mark-and-compact wouldn’t be the best fit here either, because most objects are short-lived. The large number of dead objects would force the GC to change the reference of the memory’s addresses constantly.</p>
 
 <h3 id="survivor-space">Survivor Space</h3>
 
@@ -274,7 +290,7 @@ However, by solving that problem, a new one arises: the Heap Memory is divided i
 <h1 id="conclusion">Conclusion</h1>
 <p>Memory management is tough (ask the C++ people), but we forget about that because the work is done for us automatically. However, every automation comes with a price.</p>
 
-<p>Depending on the application’s size the GC might have a major impact on its performance, due to the Stop-the-World event. It’s up to your team to tweak the GC to fit your needs and achieve the performance expected.</p>
+<p>Depending on the application’s size the GC might have a major impact on its performance, due to the Stop-the-World event. It’s up to your team to tweak the GC to fit your needs and achieve the expected performance.</p>
 
 <h1 id="where-can-you-go-from-here">Where can you go from here?</h1>
 <p>Here are some good articles to learn more about Garbage Collection:</p>
@@ -325,6 +341,22 @@ However, by solving that problem, a new one arises: the Heap Memory is divided i
   <div class="post__navigation">
     
 
+    
+    <div class="next">
+      <a class="post__nav__image" href="/2021/03/01/stress-test/" style="background-image: url(/images/stress.png)">
+      </a>
+      <h2 class="post__nav__title">
+        <a href="/2021/03/01/stress-test/">Stress Test</a>
+        <i class="ion ion-md-arrow-forward"></i>
+      </h2>
+      <p class="next__excerpt">
+        
+          Image Source
+
+Algorithm is everywhere. From our fridge to rockets. That's why we have to make them as perfe...
+        
+      </p>
+    </div>
     
   </div>
 

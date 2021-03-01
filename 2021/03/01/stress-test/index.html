@@ -6,10 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Ariel Silva | Back-end Developer</title>
+  <title>Stress Test</title>
   <meta name='description' content=''>
 
-  <link rel="canonical" href="https://silvaariel.github.io//tag/garbage-collection/">
+  <link rel="canonical" href="https://silvaariel.github.io//2021/03/01/stress-test/">
   <link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
 
   <!-- Fonts -->
@@ -129,63 +129,355 @@
 
   <!-- begin content -->
   <main class="content" aria-label="Content">
-    <div class="arhive-head">
-  <div class="container">
-    <h1 class="archive-title">Tag: <span>garbage-collection</span></h1>
+    <div class="container">
+  <div class="post-title-box">
+    <div class="row">
+      <div class="col col-10 push-2 col-11 push-t-1 col-m-12 push-m-0">
+        <span class="post__date">
+          <time datetime="2021-03-01T07:30:00-03:00">Mar 01, 2021</time>
+        </span>
+
+        <h1 class="post-title">Stress Test</h1>
+
+        <div class="post__info">
+          <div class="post__author">
+            <span>By</span>
+            <a href="/about/" class="author-name">Ariel Silva</a>
+          </div>
+
+          
+          <div class="post__tags">
+            
+              <a href="/tag/test" class="post__tags-tag">• test</a>
+            
+              <a href="/tag/algorithm" class="post__tags-tag">• algorithm</a>
+            
+              <a href="/tag/python" class="post__tags-tag">• python</a>
+            
+              <a href="/tag/go" class="post__tags-tag">• go</a>
+            
+          </div>
+          
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-
-
 
   
-<!-- begin article -->
-<div class="article">
+  
+    <div class="post__head">
+      <div class="post-image" style="background-image: url(/images/stress.png)"></div>
+    </div>
+  
+
+  </div>
+
+
   <div class="container">
+  <div class="row">
+    <!-- begin post -->
+    <article class="post  col col-8 col-t-10 col-m-12">
 
-    <div class="article__wrapper">
+      <div class="post__content">
+        <p><a href="https://www.mentalhealth.org.uk/sites/default/files/stress-wording-tile.png">Image Source</a></p>
 
-        
-          <a href="/2020/10/03/garbage-collector/" class="article__image" style="background-image: url(/images/garbage_collector.png)">
-          </a>
-        
+<p>Algorithm is everywhere. From our fridge to rockets. That’s why we have to make them as perfect as possible.</p>
 
-        <div class="article__content ">
-          <div class="article-tags">
-          
-            <div class="article-tags__box">
-              
-              <a href="/tag/java" class="article__tag">• java </a>
-              
-              <a href="/tag/garbage-collection" class="article__tag">• garbage-collection </a>
-              
-              <a href="/tag/memory" class="article__tag">• memory </a>
-              
-            </div>
-          
-          </div>
-      
-          <h2 class="article__title">
-            <a href="/2020/10/03/garbage-collector/">Java's Garbage Collection for Beginners</a>
-          </h2>
-      
-          <p class="article__excerpt">Object-Oriented Programming relies heavily on objects (hence the name). We create and use objects in Java all the time and yet we don’t really pay much attention to it. But each one ...</p>
-          
-          <div class="article__footer">
-            <div class="article__meta">
-              <span class="article__date"><time datetime="2020-10-03T07:30:00-03:00">October 3, 2020</time></span>
-            </div>
+<p>However, we are flawed creatures, how can we write (nearly) perfect algorithms? Well, we can’t. But we should try either way.</p>
 
-            <a href="/2020/10/03/garbage-collector/" class="read-more">Keep Reading <i class="ion ion-ios-arrow-forward"></i></a>
-          </div>
+<p>What makes an algorithm perfect?</p>
 
-        </div>
+<p>An perfect algorithm is accurate and cheap (as in it takes little resources). Our resources are limited. We can’t afford to pay gazillion dollars for memory and CPU just to iterate over a (really) long list.</p>
+
+<p>To achieve that efficiency we have to test the hell out of our algorithms.</p>
+
+<h1 id="stress-test">Stress Test</h1>
+
+<p>Stress Test comes down to sending a lot of different inputs to the algorithm and comparing the output to what we expected.</p>
+
+<p>We’ll see how it works.</p>
+
+<p>Let’s say we want to find the biggest <a href="https://en.wikipedia.org/wiki/Product_(mathematics)">product</a> in an array.</p>
+
+<p>We just came up with this algorithm, but we are not sure if it will work correctly.</p>
+
+<table>
+    <tr>
+        <th>Python</th>
+        <th>Go</th>
+    </tr>
+    <tr>
+        <td><script src="https://gist.github.com/SilvaAriel/b5fa07421878d789bbd3583c4367491e.js"></script></td>
+        <td><script src="https://gist.github.com/SilvaAriel/e94e639d01f2f25eb2ada5dcd3b37f7f.js"></script></td>
+    </tr>
+</table>
+
+<p>Explanation: Since the biggest product is basically the multiplication of the two biggest numbers, we traverse the array to find them. If the <code class="language-plaintext highlighter-rouge">number</code> is bigger than <code class="language-plaintext highlighter-rouge">biggest</code>, assign <code class="language-plaintext highlighter-rouge">number</code> to <code class="language-plaintext highlighter-rouge">biggest</code>, but if it’s not and <code class="language-plaintext highlighter-rouge">number</code> is bigger than <code class="language-plaintext highlighter-rouge">second_biggest</code> assign it to <code class="language-plaintext highlighter-rouge">second_biggest</code> then.</p>
+
+<p>Now it’s time to make sure our algorithm works reliably, whatever the input size. How can we do this? <span style="color: gray">(We don’t want to test it for String input, just integer size and correctness of the result)</span></p>
+
+<p>We create a simple brute-force algorithm that we are as sure as possible that it will work.</p>
+
+<p>The simplest way to find what’s the biggest product between two numbers is to traverse the whole array twice, comparing the product of each number with the others. That is, we will multiply <code class="language-plaintext highlighter-rouge">n</code> by <code class="language-plaintext highlighter-rouge">n+1</code>.</p>
+
+<p>This algorithm will take <code class="language-plaintext highlighter-rouge">O(n²)</code>, which is really bad for large inputs, but we are not trying to achieve efficiency here. We want an reliable algorithm to compare with our optimized algorithm.</p>
+
+<p>Let’s write our brute-force algorithm.</p>
+
+<table>
+    <tr>
+        <th>Python</th>
+        <th>Go</th>
+    </tr>
+    <tr>
+        <td><script src="https://gist.github.com/SilvaAriel/d4ab5d18173168a4927248f27e6f6db9.js"></script></td>
+        <td><script src="https://gist.github.com/SilvaAriel/672528c995797c860c9960bf125ebde5.js"></script></td>
+    </tr>
+</table>
+
+<p>For an simple algorithm like this one we can compare two things:</p>
+
+<ol>
+  <li>Execution time</li>
+  <li>Result</li>
+</ol>
+
+<p>The result will show us if our algorithms are returning the expect results.</p>
+
+<p>What expected results? Those returned by our simple algorithm.</p>
+
+<p>Let’s create our Stress Testing logic.</p>
+<table>
+    <tr>
+        <th>Python</th>
+        <th>Go</th>
+    </tr>
+    <tr>
+        <td><script src="https://gist.github.com/SilvaAriel/d41f1ddbbb5a25dd3dd0561bd11fde0a.js"></script></td>
+        <td><script src="https://gist.github.com/SilvaAriel/083e9696b876ac0c15134712ab57f9d4.js"></script></td>
+    </tr>
+</table>
+
+<p>First, we compare large inputs (like <code class="language-plaintext highlighter-rouge">random.randint(1,1000)</code>) to increase our chance to find any bug.</p>
+
+<p>After <del>if</del> we find it we can decrease our input’s size (like <code class="language-plaintext highlighter-rouge">random.randint(1,10)</code>) to try to find the bug in a more constraint case. This will help us debugging it, because it’s easier to determine the biggest product in an array with values <code class="language-plaintext highlighter-rouge">[3,5,9,9]</code> than in one array with values <code class="language-plaintext highlighter-rouge">[300,523,8760,5231]</code>.</p>
+
+<p>Let’s run the Stress Test. It will find a difference.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Max Common result: 43472
+Max Faster result: 42845
+Max Common took: 145979 ns
+Max Faster took: 577 ns
+Values differ
+</code></pre></div></div>
+
+<p>It looks like our Faster (measured in nanoseconds) algorithm is probably with a bug. But we don’t know yet what it is.</p>
+
+<p>Let’s decrease the size of the input and print the array to check its values.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Values: <span class="o">[</span>4 6 0 1 5 2 7 8 3]
+Max Common result: 56
+Max Faster result: 40
+Max Common took: 740 ns
+Max Faster took: 181 ns
+Values differ
+</code></pre></div></div>
+
+<p>Now the array has elements from 0 to 10. This will make it easier to debug.</p>
+
+<p>We know that we want the product of the biggest numbers in the array. They are 7 and 8. Their product is 56. Our brute force algorithm (called Max Common) is correct, so we can use him as a reference.</p>
+
+<p>We have to understand why our faster algorithm (called Max Faster) is failing. Let’s print the values of <code class="language-plaintext highlighter-rouge">biggest</code> and <code class="language-plaintext highlighter-rouge">second_biggest</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Biggest: 8
+Second Biggest: 5
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">biggest</code> value is correct. But the <code class="language-plaintext highlighter-rouge">second_biggest</code> somehow is 5 instead of 7. What happened?</p>
+
+<p>Let’s check our conditionals, since they are the ones responsible for making these assignments. We’ll add an additional print to check the values each variable is getting.</p>
+
+<table>
+    <tr>
+        <th>Python</th>
+        <th>Go</th>
+    </tr>
+    <tr>
+        <td><script src="https://gist.github.com/SilvaAriel/e265127692fd23e56a3804e5decd7ccc.js"></script></td>
+        <td><script src="https://gist.github.com/SilvaAriel/bd28dada267c5cef28ad84ab3b7663f6.js"></script></td>
+    </tr>
+</table>
+
+<p><b>The output was:</b></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Values: <span class="o">[</span>4 6 0 1 5 2 7 8 3]
+Biggest value: 4
+Biggest value: 6
+Second Biggest value: 1
+Second Biggest value: 5
+Biggest value: 7
+Biggest value: 8
+</code></pre></div></div>
+<p><br />
+It seems that the <code class="language-plaintext highlighter-rouge">biggest</code> variable got 4 and then 6. But the <code class="language-plaintext highlighter-rouge">second_biggest</code> didn’t get the actual second biggest value (at first, it was 4), but 1 (it didn’t get 0 because its initial value is 0). The first number bigger than <code class="language-plaintext highlighter-rouge">second_biggest</code>’s initial value was the number 1.</p>
+
+<p>The problem seems to be that the <code class="language-plaintext highlighter-rouge">biggest</code> variable is being assigned bigger values and discarding the preceding ones, even if they were bigger than <code class="language-plaintext highlighter-rouge">second_biggest</code>.</p>
+
+<p>To solve that we just have to add a condition for when <code class="language-plaintext highlighter-rouge">biggest &gt; second_biggest</code>. Like this:</p>
+
+<table>
+    <tr>
+        <th>Python</th>
+        <th>Go</th>
+    </tr>
+    <tr>
+        <td><script src="https://gist.github.com/SilvaAriel/3dd66213e3b17ac3fb5b7bd70982c871.js"></script></td>
+        <td><script src="https://gist.github.com/SilvaAriel/2fb510bf46acfaf158b6d7505e8f9a2e.js"></script></td>
+    </tr>
+</table>
+
+<p>Now let’s increase the number of random integers and test our algorithm again.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Python
+</span><span class="n">n</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10000</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Go</span>
+<span class="n">n</span> <span class="o">:=</span> <span class="n">rand</span><span class="o">.</span><span class="n">Intn</span><span class="p">(</span><span class="m">10000</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><br />
+I ran the code for 30 seconds (and pressed CTRL+C to stop it) and no difference was found. It means Max Faster algorithm is working just fine.</p>
+
+<p>Just out of curiosity, let’s see how faster our algorithm is. Add these lines:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Python
+</span><span class="k">print</span><span class="p">(</span><span class="s">"Max Faster is %.0f times faster than Max Common"</span> <span class="o">%</span> <span class="p">(</span><span class="n">elapsed_common</span><span class="o">/</span><span class="n">elapsed_fast</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">// Go</span>
+<span class="n">fmt</span><span class="o">.</span><span class="n">Printf</span><span class="p">(</span><span class="s">"Max Faster is %.0d times faster than Max Common"</span><span class="p">,</span> <span class="kt">int64</span><span class="p">(</span><span class="n">elapsed_max</span><span class="o">/</span><span class="n">elapsed_faster</span><span class="p">))</span>
+</code></pre></div></div>
+<p><br />
+<b>Python outputted:</b></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Max Common took: 148081865 ns
+Max Faster took: 128261 ns
+Max Faster is 1155 <span class="nb">times </span>faster than Max Common
+<span class="nt">------------------</span>
+Max Common took: 93722602 ns
+Max Faster took: 120747 ns
+Max Faster is 776 <span class="nb">times </span>faster than Max Common
+<span class="nt">------------------</span>
+Max Common took: 138593956 ns
+Max Faster took: 156146 ns
+Max Faster is 888 <span class="nb">times </span>faster than Max Common
+<span class="nt">------------------</span>
+Max Common took: 57775530 ns
+Max Faster took: 107723 ns
+Max Faster is 536 <span class="nb">times </span>faster than Max Common
+</code></pre></div></div>
+<p><br />
+<b>Go outputted:</b></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Max Common took: 210722 ns
+Max Faster took: 1090 ns
+Max Faster is 193 <span class="nb">times </span>faster than Max Common
+<span class="nt">--------------</span>
+Max Common took: 828717 ns
+Max Faster took: 1235 ns
+Max Faster is 671 <span class="nb">times </span>faster than Max Common
+<span class="nt">--------------</span>
+Max Common took: 3168791 ns
+Max Faster took: 4066 ns
+Max Faster is 779 <span class="nb">times </span>faster than Max Common
+<span class="nt">--------------</span>
+Max Common took: 48031 ns
+Max Faster took: 735 ns
+Max Faster is 65 <span class="nb">times </span>faster than Max Common
+</code></pre></div></div>
+<p><br /></p>
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Never trust entirely on you algorithm. It was made by a flawed creator: you.</p>
+
+<p>In this post’s example we tested an simple algorithm, but an complex one can have a lot of corner cases. Whenever you write an algorithm try to think about all the corner cases and test your code against them.</p>
+
+<p>Stress Test will be just one of the tools you will use to test your algorithm. Instead of you creating the data to test it, outsource it to the computer and let it do its magic.</p>
+
+<p>Also, remember that the test can also be flawed, so try to keep it as simple as possible.</p>
 
       </div>
-      
-  </div>
-</div>
-<!-- end article -->
 
+      <div class="post__share">
+        <span class="share__title">Share this article:</span>
+        <ul class="share__list list-reset">
+          <li class="share__item">
+            <a class="share__facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://silvaariel.github.io//2021/03/01/stress-test/"
+              onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+              title="Share on Facebook" rel="nofollow"><i class="ion ion-logo-facebook"></i></a>
+          </li>
+
+          <li class="share__item">
+            <a class="share__twitter" href="https://twitter.com/intent/tweet?text=Stress%20Test&url=https://silvaariel.github.io//2021/03/01/stress-test/"
+              onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;"
+              title="Share on Twitter" rel="nofollow"><i class="ion ion-logo-twitter"></i></a>
+          </li>
+
+          <li class="share__item">
+            <a class="share__linkedin" href="https://www.linkedin.com/shareArticle?mini=true&url=https://silvaariel.github.io//2021/03/01/stress-test/&title=Stress%20Test&summary=&source="
+              onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="Share on LinkedIn" rel="nofollow"><i class="ion ion-logo-linkedin"></i></a>
+          </li>
+
+          <li class="share__item">
+            <a class="share__pinterest" href="http://pinterest.com/pin/create/button/?url=https://silvaariel.github.io//2021/03/01/stress-test/&amp;media=https://silvaariel.github.io//images/stress.png&amp;description=Stress%20Test"
+              onclick="window.open(this.href, 'pop-up', 'left=20,top=20,width=900,height=500,toolbar=1,resizable=0'); return false;" title="Share on Pinterest"
+              rel="nofollow"><i class="ion ion-logo-pinterest"></i></a>
+          </li>
+        </ul>
+      </div>
+    </article>
+    <!-- end post -->
+    </div>
+  </div>
+
+  <div class="container">
+  <div class="post__navigation">
+    
+    <div class="prev">
+      <a class="post__nav__image" href="/2020/10/03/garbage-collector/" style="background-image: url(/images/garbage_collector.png)"></a>
+      <h2 class="post__nav__title">
+        <i class="ion ion-md-arrow-back"></i>
+        <a href="/2020/10/03/garbage-collector/">Java's Garbage Collection for Beginners</a>
+      </h2>
+      <p class="prev__excerpt">
+        
+          Object-Oriented Programming relies heavily on objects (hence the name). We create and use objects in Java a...
+        
+      </p>
+    </div>
+    
+
+    
+  </div>
+
+   <!-- begin comments -->
+<div class="comments">
+  <div id="disqus_thread"></div>
+  <script>
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = '//ariel-silva.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+  </noscript>
+</div>
+<!-- end comments --> 
+  </div>
 
   </main>
   <!-- end content -->
